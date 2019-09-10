@@ -1,0 +1,108 @@
+<div class="sales-container marginB20">
+    <div class="tab-white">
+      <app-sales-tabs [tabs]="filterTabs" [tab]="filterTab" (tabChangeEvent)="filterTabsChange($event)"></app-sales-tabs>
+    </div>
+</div>
+<div class="sales-container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="white-bg marginB40">
+        <div class="dropdown ">
+          <button class="btn dropdown-toggle marginT5" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{salesRep?salesRep:'All sales rep'}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a *ngFor="let item of salesReps" class="dropdown-item" (click)="changeSalesRep(item)" >{{item?.label}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="funnel">
+            <img src="assets/img/funnel.png">
+            <div class="funnel-text">
+              <div class="item">
+                <p>Lead In</p>
+                <h3>{{engagementStatus?.leadIn}}</h3>
+              </div>
+              <div class="item">
+                <p>Contact Mage</p>
+                <h3>{{engagementStatus?.contactMade}}</h3>
+              </div>
+              <div class="item">
+                <p>Needs Defined</p>
+                <h3>{{engagementStatus?.needsDefined}}</h3>
+              </div>
+              <div class="item">
+                <p>Proposal Made</p>
+                <h3>{{engagementStatus?.proposalMade}}</h3>
+              </div>
+              <div class="item">
+                <p>Negotiations Started</p>
+                <h3>{{engagementStatus?.negotiationsStarted}}</h3>
+              </div>
+              <div class="item">
+                <h3>WON</h3>
+                <h3>{{engagementStatus?.won}}</h3>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="col-md-4">
+          <div class="gradial">
+              <app-block-one *ngFor="let item of callsWinsAndRevenue" [item]="item">Loding</app-block-one>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="tab-white marginB40">
+          <app-sales-tabs [tabs]="levelTabs" [tab]="levelTab" (tabChangeEvent)="levelTabsChange($event)"></app-sales-tabs>
+      </div>
+
+      <div *ngIf="levelTab=='TOP'"  class="gradient">
+          <app-block-two *ngFor="let item of topBottomSalesRep?.top" [item]="item"></app-block-two>
+      </div>
+      <div *ngIf="levelTab=='BOTTOM'"  class="gradient">
+          <app-block-two *ngFor="let item of topBottomSalesRep?.bottom" [item]="item"></app-block-two>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid white-bg ">
+  <h2 class="padding30 marginB20">Details</h2>
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Sales Rep</th>
+          <th>Date</th>
+          <th>Client</th>
+          <th>Primary Cotact Person</th>
+          <th>Title</th>
+          <th>Vertical</th>
+          <th>Meeting Location</th>
+          <th>Perpose of interection</th>
+          <th>OutCome & Remarks</th>
+          <th>Engagement Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dashboardData" >
+          <td>{{item?.salesRep?.S}}</td>
+          <td>{{item?.date?.N| moment:'MMM Do, YYYY'}}</td>
+          <td>{{item?.client?.S}}</td>
+          <td>{{item?.contactPerson?.S}}</td>
+          <td>{{item?.title?.S}}</td>
+          <td>{{item?.vertical?.S}}</td>
+          <td>{{item?.meetingLocation?.S}}</td>
+          <td>{{item?.purposeOfInteraction?.S}}</td>
+          <td>{{item?.outcomeWithRemarks?.S}}</td>
+          <td>{{item?.engagementStatus?.S}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
